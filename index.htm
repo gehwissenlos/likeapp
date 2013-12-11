@@ -1,0 +1,53 @@
+<html>
+	<head>
+		<title>LikeApp: Kreissparkasse Ravensburg</title>
+		<link rel="stylesheet" href="css/flipclock.css">
+		<link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+		<script src="js/flipclock/libs/base.js"></script>
+		<script src="js/flipclock/flipclock.js"></script>
+		<script src="js/flipclock/faces/counter.js"></script>
+		<link rel="apple-touch-icon" href="apple-touch-icon.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="mobile-web-app-capable" content="yes">		
+	</head>
+	<body onLoad="javascript:setInterval(checkForLikes, 10000);"><!-- checkt alle 10 Sekunden ob sich was geändert hat -->
+	<div class="wrapper">
+		<h1>LIKE US ON FACEBOOK</h1>
+		<div class="clock"></div><br>Likes<br><br>
+		<img src="facebook.png" height="22px"> facebook.com/KreissparkasseRavensburg
+		
+		<script type="text/javascript">
+			var clock;
+
+			$(document).ready(function() {
+
+				// Instantiate a counter
+				clock = $('.clock').FlipClock(500, {
+					clockFace: 'Counter'
+				});
+				checkForLikes();
+			});
+			
+			//Hintergrund setzen
+			var image;
+			$.getJSON('https://graph.facebook.com/kreissparkasseravensburg', function(data) {
+					image = data['cover']['source'].toString();
+					$('body').css('background', 'url(pattern.png) fixed, url('+image+') 50% 50% fixed no-repeat');
+					$('body').css('-moz-background-size', 'auto, cover'); 
+					$('body').css('background-size', 'auto, cover');
+			});
+			
+			function checkForLikes()
+			{
+				$.getJSON('https://graph.facebook.com/kreissparkasseravensburg', function(data) {
+					var fb_count = data['likes'].toString();
+					clock.setValue(fb_count);
+				});
+			}
+		</script>
+	
+	</div>
+	</body>
+</html> 
