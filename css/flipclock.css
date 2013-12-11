@@ -15,6 +15,7 @@
 
 body {
 	font: normal 25px "Exo 2", Arial, sans-serif;
+	text-align: center;
 }
 
 h1 {
@@ -30,7 +31,7 @@ a:hover {color:000; text-decoration: none;}
 a:active {color:000; text-decoration: none;}
 
 .wrapper {
-	width: 700px;
+	display: inline-block;
 	margin: 0 auto;
 	margin-top: 75px;
 	padding: 20px;
